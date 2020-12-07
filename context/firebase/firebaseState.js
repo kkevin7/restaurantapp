@@ -4,6 +4,8 @@ import FirebaseReducer from './firebaseReducer';
 import FirebaseContext from './firebaseConext';
 //Actions Types
 import {OBTNER_PRODUCTOS_EXITO} from '../types';
+//Libs
+import _ from 'lodash';
 
 const FirebaseState = (props) => {
   // Crear state inicial
@@ -29,6 +31,10 @@ const FirebaseState = (props) => {
           ...doc.data(),
         };
       });
+
+      //Ordenar por categoria con loadash
+      platillos = _.sortBy(platillos, 'categoria');
+
       dispatch({
           type: OBTNER_PRODUCTOS_EXITO,
           payload: platillos
