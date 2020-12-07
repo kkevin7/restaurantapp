@@ -10,7 +10,9 @@ import {
 } from 'react-native';
 //Navigation
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack'
+import {createStackNavigator} from '@react-navigation/stack';
+//Firebase
+import FirebaseState from './context/firebase/firebaseState';
 //Views
 import NuevaOrden from './views/NuevaOrden';
 import Menu from './views/Menu';
@@ -24,64 +26,63 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <>
-      <NavigationContainer>
-        <Stack.Navigator
-         screenOptions={{
-           headerStyle: {
-             backgroundColor: '#FFDA00'
-           }
-         }}
-        >
-          <Stack.Screen
-            name="NuevaOrden"
-            component={NuevaOrden}
-            options={{
-              title: "Nueva Orden"
-            }}
-          />
-          <Stack.Screen
-            name="Menu"
-            component={Menu}
-            options={{
-              title: "Nuestro Menú"
-            }}
-          />
-          <Stack.Screen
-            name="DetallePlatillo"
-            component={DetallePlatillo}
-            options={{
-              title: "Detalle Platillo"
-            }}
-          />
-          <Stack.Screen
-            name="FormularioPlatillo"
-            component={FormularioPlatillo}
-            options={{
-              title: "Formulario Platillo"
-            }}
-          />
-          <Stack.Screen
-            name="ResumenPedido"
-            component={ResumenPedido}
-            options={{
-              title: "Resumen Pedido"
-            }}
-          />
-          <Stack.Screen
-            name="ProgresoPedido"
-            component={ProgresoPedido}
-            options={{
-              title: "Progreso Pedido"
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <FirebaseState>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: '#FFDA00',
+              },
+            }}>
+            <Stack.Screen
+              name="NuevaOrden"
+              component={NuevaOrden}
+              options={{
+                title: 'Nueva Orden',
+              }}
+            />
+            <Stack.Screen
+              name="Menu"
+              component={Menu}
+              options={{
+                title: 'Nuestro Menú',
+              }}
+            />
+            <Stack.Screen
+              name="DetallePlatillo"
+              component={DetallePlatillo}
+              options={{
+                title: 'Detalle Platillo',
+              }}
+            />
+            <Stack.Screen
+              name="FormularioPlatillo"
+              component={FormularioPlatillo}
+              options={{
+                title: 'Formulario Platillo',
+              }}
+            />
+            <Stack.Screen
+              name="ResumenPedido"
+              component={ResumenPedido}
+              options={{
+                title: 'Resumen Pedido',
+              }}
+            />
+            <Stack.Screen
+              name="ProgresoPedido"
+              component={ProgresoPedido}
+              options={{
+                title: 'Progreso Pedido',
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FirebaseState>
     </>
   );
 };
 
-const styles = StyleSheet.create({
-  
-});
+const styles = StyleSheet.create({});
 
 export default App;
