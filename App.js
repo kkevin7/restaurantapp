@@ -35,6 +35,10 @@ const App = () => {
                 headerStyle: {
                   backgroundColor: '#FFDA00',
                 },
+                headerTitleStyle: {
+                  fontWeight: 'bold'
+                },
+                headerTintColor: '#000',
               }}>
               <Stack.Screen
                 name="NuevaOrden"
