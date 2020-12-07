@@ -28,15 +28,15 @@ const Menu = () => {
       const categoriaAnterior = menu[i - 1].categoria;
       if (categoriaAnterior !== categoria) {
         return (
-          <Separator>
-            <Text>{categoria}</Text>
+          <Separator style={styles.separador}>
+            <Text style={styles.separadorTexto}>{categoria.toUpperCase()}</Text>
           </Separator>
         );
       }
     } else {
       return (
-        <Separator>
-          <Text>{categoria}</Text>
+        <Separator style={styles.separador}>
+          <Text style={styles.separadorTexto}>{categoria.toUpperCase()}</Text>
         </Separator>
       );
     }
@@ -77,4 +77,13 @@ const Menu = () => {
 
 export default Menu;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  separador: {
+    backgroundColor: '#000'
+  },
+  separadorTexto: {
+    color: '#FFDA00',
+    fontWeight: 'bold',
+    textTransform: 'uppercase'
+  },
+});
