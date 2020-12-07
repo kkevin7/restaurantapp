@@ -1,11 +1,19 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import {Container, Button, Text} from 'native-base';
 
 const NuevaOrden = () => {
     return (
-        <View>
-            <Text>NuevaOrden</Text>
-        </View>
+        <Container>
+            <View>
+                <Button
+                rounded
+                block
+                >
+                    <Text>Crear Nueva Orden</Text>
+                </Button>
+            </View>
+        </Container>
     )
 }
 
