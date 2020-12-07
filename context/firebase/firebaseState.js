@@ -3,7 +3,7 @@ import firebase from '../../firebase';
 import FirebaseReducer from './firebaseReducer';
 import FirebaseContext from './firebaseConext';
 //Actions Types
-import {OBTNER_PRODUCTOS} from '../types';
+import {OBTNER_PRODUCTOS_EXITO} from '../types';
 
 const FirebaseState = (props) => {
   // Crear state inicial
@@ -16,9 +16,24 @@ const FirebaseState = (props) => {
 
   //Funcion que se ejecuta para traer productos
   const obtnerProductos = () => {
-    dispatch({
-      type: OBTNER_PRODUCTOS,
-    });
+
+    firebase.db
+      .collection('productos')
+      .where('existencia', '==', true)
+      .onSnapshot(handleSnapshot);
+
+    async function handleSnapshot(snapshot) {
+      let platillos = await snapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+      dispatch({
+          type: OBTNER_PRODUCTOS_EXITO,
+          payload: platillos
+      })
+    }
   };
 
   return (

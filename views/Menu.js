@@ -1,19 +1,57 @@
-import React, {useContext, useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useContext, useEffect, Fragment} from 'react';
+import {StyleSheet, View} from 'react-native';
 import FirebaseContext from '../context/firebase/firebaseConext';
+import {
+    Container,
+    Separator,
+    Content,
+    List,
+    ListItem,
+    Thumbnail,
+    Text,
+    Left,
+    Body
+} from 'native-base'
+import globalStyles from '../styles/global'
+//Assets
+import defaultImg from '../assets/images/image.png';
 
 const Menu = () => {
   //Contet de Firebase
-  const {obtenerProductos} = useContext(FirebaseContext);
+  const {menu, obtnerProductos} = useContext(FirebaseContext);
 
   useEffect(() => {
-    obtenerProductos();
+    obtnerProductos();
   }, []);
 
+  console.log("menu: ",menu);
+
+  if(!menu) return null;
+
   return (
-    <View>
-      <Text>Menu</Text>
-    </View>
+    <Container style={globalStyles.contenedor}>
+      <Content style={{backgroundColor: '#FFF'}}>
+        <List>
+          {menu.map(platillo => {
+            const { imagen, nombre, descripcion, categoria, id} = platillo;
+            return(
+              <Fragment key={id}>
+                <ListItem>
+                {/* <Thumbnail source={{uri: defaultImg}} /> */}
+                  <Body>
+                    <Text>{nombre}</Text>
+                    <Text
+                    note
+                    numberOfLines={3}
+                    >{descripcion}</Text>
+                  </Body>
+                </ListItem>
+              </Fragment>
+            );
+          })}
+        </List>
+      </Content>
+    </Container>
   );
 };
 
