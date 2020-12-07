@@ -9,7 +9,6 @@ import {
     ListItem,
     Thumbnail,
     Text,
-    Left,
     Body
 } from 'native-base'
 import globalStyles from '../styles/global'
@@ -37,7 +36,7 @@ const Menu = () => {
             return(
               <Fragment key={id}>
                 <ListItem>
-                {/* <Thumbnail source={{uri: defaultImg}} /> */}
+                <Thumbnail large square source={imagen ? {uri: imagen} : defaultImg} />
                   <Body>
                     <Text>{nombre}</Text>
                     <Text
