@@ -1,6 +1,10 @@
 import React, {useContext, useEffect, Fragment} from 'react';
 import {StyleSheet, View} from 'react-native';
+//Contex
 import FirebaseContext from '../context/firebase/firebaseConext';
+import PedidoContext from '../context/pedidos/pedidosContext';
+//Navigation
+import {useNavigation} from '@react-navigation/native';
 import {
   Container,
   Separator,
@@ -16,8 +20,10 @@ import globalStyles from '../styles/global';
 import defaultImg from '../assets/images/image.png';
 
 const Menu = () => {
-  //Contet de Firebase
+  const navigation = useNavigation();
+  //Context 
   const {menu, obtnerProductos} = useContext(FirebaseContext);
+  const {seleccionarPlatillo} = useContext(PedidoContext);
 
   useEffect(() => {
     obtnerProductos();
@@ -53,7 +59,14 @@ const Menu = () => {
             return (
               <Fragment key={id}>
                 {mostrarHeading(categoria, i)}
-                <ListItem>
+                <ListItem
+                  onPress={ () => {
+                    // Eliminar algunas propiedad del platillo
+                    const {existencia, ...platillo2} = platillo;
+                    seleccionarPlatillo(platillo2);
+                    navigation.navigate('DetallePlatillo');
+                  }}
+                >
                   <Thumbnail
                     large
                     square
