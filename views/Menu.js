@@ -63,6 +63,7 @@ const Menu = () => {
                   onPress={ () => {
                     // Eliminar algunas propiedad del platillo
                     const {existencia, ...platillo2} = platillo;
+                    
                     seleccionarPlatillo(platillo2);
                     navigation.navigate('DetallePlatillo');
                   }}
