@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, Alert} from 'react-native';
 import {
   Container,
   Content,
@@ -10,6 +10,8 @@ import {
   Col,
   Button,
   Text,
+  Footer,
+  FooterTab
 } from 'native-base';
 import globalStyles from '../styles/global';
 //Context
@@ -57,6 +59,25 @@ const FormularioPlatillo = () => {
         }
     }
 
+    const confirmarOrden = () => {
+      Alert.alert(
+        '¿Deseas confirmar tu pedido?',
+        'Un pedido confirmado ya no se podrá modificar',
+        [
+          {
+            text: 'Confirmar',
+            onPress: ()=> {
+
+            }
+          },
+          {
+            text: 'Cancerlar',
+            style: 'cancel'
+          }
+        ]
+      )
+    }
+
   return (
     <Container>
       <Content>
@@ -90,6 +111,15 @@ const FormularioPlatillo = () => {
           <Text style={globalStyles.cantidad}>Subtotal: $ {total}</Text>
         </Form>
       </Content>
+
+      <Footer>
+                <FooterTab>
+                    <Button style={globalStyles.boton}  onPress={() => confirmarOrden()}>
+                        <Text style={globalStyles.botonTexto}>Ordenar Platillo</Text>
+                    </Button>
+                </FooterTab>
+            </Footer>
+
     </Container>
   );
 };
