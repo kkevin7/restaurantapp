@@ -28,7 +28,7 @@ const ResumenPedido = () => {
     const navigation = useNavigation();
 
     //Context pedido
-    const {pedido, total, mostrarResumen} = useContext(PedidoContext);
+    const {pedido, total, mostrarResumen, eliminarProducto} = useContext(PedidoContext);
 
     useEffect(()=>{
         calcularTotal();
@@ -53,11 +53,32 @@ const ResumenPedido = () => {
                     }
                 },
                 {
-                    text: 'Revisar',
+                    text: 'Cancelar',
                     style: 'cancel'
                 }
             ]
-        )
+        );
+    }
+
+    const confirmarEliminacion = (id) => {
+        console.log(id);
+        Alert.alert(
+            '¿Deseas Eliminar este articulo?',
+            'Una vez eliminado no se podrá recuperar',
+            [
+                {
+                    text: 'Confirmar',
+                    onPress: () => {
+                        //Eliminar del state
+                        eliminarProducto(id);
+                    }
+                },
+                {
+                    text: 'Calcelar',
+                    style: 'cancel'
+                }
+            ]
+        );
     }
 
     return (
@@ -77,6 +98,14 @@ const ResumenPedido = () => {
                                     <Text>{nombre}</Text>
                                     <Text>Cantidad: {cantidad}</Text>
                                     <Text>Precio: $ {precio}</Text>
+                                    <Button
+                                        full
+                                        danger
+                                        style={{marginTop: 20}}
+                                        onPress={() => confirmarEliminacion(id)}
+                                    >
+                                        <Text style={[globalStyles.botonTexto, {color: '#FFF'}]}>Eliminar</Text>
+                                    </Button>
                                 </Body>
                             </ListItem>
                         </List>

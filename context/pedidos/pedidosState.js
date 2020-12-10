@@ -46,7 +46,7 @@ const PedidosState = props => {
 
     const eliminarProducto = id => {
         dispatch({
-            type: MOSTRAR_RESUMEN,
+            type: ELIMINAR_PRODUCTO,
             payload: id
         });
     }
