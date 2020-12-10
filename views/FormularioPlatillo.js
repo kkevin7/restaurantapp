@@ -11,7 +11,7 @@ import {
   Button,
   Text,
   Footer,
-  FooterTab
+  FooterTab,
 } from 'native-base';
 import globalStyles from '../styles/global';
 //Context
@@ -21,62 +21,64 @@ import gobalStyles from '../styles/global';
 import {useNavigation} from '@react-navigation/native';
 
 const FormularioPlatillo = () => {
+  const navigation = useNavigation();
+  const {platillo, guardarPedido} = useContext(PedidoContext);
+  const {precio} = platillo;
 
-    const {platillo} = useContext(PedidoContext);
-    const {precio} = platillo;
+  //State
+  const [cantidad, setCantidad] = useState(1);
+  const [total, setTotal] = useState(0);
 
-    //State
-    const [cantidad, setCantidad] = useState(1);
-    const [total, setTotal] = useState(0);
+  useEffect(() => {
+    calcularTotal();
+  }, [cantidad]);
 
-    useEffect(() => {
-        calcularTotal();
-    }, [cantidad])
+  //Calcular el total de platillo
+  const calcularTotal = () => {
+    const totalPagar = precio * cantidad;
+    setTotal(totalPagar);
+  };
 
-    //Calcular el total de platillo
-    const calcularTotal = () => {
-        const totalPagar = precio * cantidad;
-        setTotal(totalPagar);
+  const calcularCantidad = (cantidad) => {
+    setCantidad(cantidad);
+  };
+
+  const disminuirUno = () => {
+    if (cantidad > 0) {
+      setCantidad(parseInt(cantidad) - 1);
+    } else if (!cantidad) {
+      setCantidad(1);
     }
+  };
 
-    const calcularCantidad = (cantidad) => {
-        setCantidad(cantidad);
+  const incremetarUno = () => {
+    if (!cantidad) {
+      setCantidad(1);
+    } else {
+      setCantidad(parseInt(cantidad) + 1);
     }
+  };
 
-    const disminuirUno = () => {
-        if(cantidad>0){
-            setCantidad(parseInt(cantidad)-1);
-        } else if(!cantidad){
-            setCantidad(1);
-        }
-    }
-
-    const incremetarUno = () => {
-        if(!cantidad){
-            setCantidad(1);
-        }else{
-            setCantidad(parseInt(cantidad)+1);
-        }
-    }
-
-    const confirmarOrden = () => {
-      Alert.alert(
-        '¿Deseas confirmar tu pedido?',
-        'Un pedido confirmado ya no se podrá modificar',
-        [
-          {
-            text: 'Confirmar',
-            onPress: ()=> {
-
-            }
+  const confirmarOrden = () => {
+    Alert.alert(
+      '¿Deseas confirmar tu pedido?',
+      'Un pedido confirmado ya no se podrá modificar',
+      [
+        {
+          text: 'Confirmar',
+          onPress: () => {
+            const pedido = {...platillo, cantidad, total}
+            guardarPedido(pedido);
+            navigation.navigate("ResumenPedido")
           },
-          {
-            text: 'Cancerlar',
-            style: 'cancel'
-          }
-        ]
-      )
-    }
+        },
+        {
+          text: 'Cancerlar',
+          style: 'cancel',
+        },
+      ],
+    );
+  };
 
   return (
     <Container>
@@ -85,24 +87,28 @@ const FormularioPlatillo = () => {
           <Text style={globalStyles.titulo}>Cantidad</Text>
           <Grid>
             <Col>
-              <Button props dark style={{height: 80, justifyContent: 'center', width: '100%'}}
-                onPress={disminuirUno }
-              >
+              <Button
+                props
+                dark
+                style={{height: 80, justifyContent: 'center', width: '100%'}}
+                onPress={disminuirUno}>
                 <Icon style={{fontSize: 40}} name="remove" />
               </Button>
             </Col>
             <Col>
-              <Input 
-              value={cantidad.toString()} 
-              style={{textAlign: 'center', fontSize: 20}}
-              keyboardType="numeric"
-              onChangeText={(cantidad) => calcularCantidad(cantidad) }
+              <Input
+                value={cantidad.toString()}
+                style={{textAlign: 'center', fontSize: 20}}
+                keyboardType="numeric"
+                onChangeText={(cantidad) => calcularCantidad(cantidad)}
               />
             </Col>
             <Col>
-              <Button props dark style={{height: 80, justifyContent: 'center',width: '100%'}}
-               onPress={incremetarUno}
-              >
+              <Button
+                props
+                dark
+                style={{height: 80, justifyContent: 'center', width: '100%'}}
+                onPress={incremetarUno}>
                 <Icon style={{fontSize: 40}} name="add" />
               </Button>
             </Col>
@@ -113,13 +119,12 @@ const FormularioPlatillo = () => {
       </Content>
 
       <Footer>
-                <FooterTab>
-                    <Button style={globalStyles.boton}  onPress={() => confirmarOrden()}>
-                        <Text style={globalStyles.botonTexto}>Ordenar Platillo</Text>
-                    </Button>
-                </FooterTab>
-            </Footer>
-
+        <FooterTab>
+          <Button style={globalStyles.boton} onPress={() => confirmarOrden()}>
+            <Text style={globalStyles.botonTexto}>Ordenar Platillo</Text>
+          </Button>
+        </FooterTab>
+      </Footer>
     </Container>
   );
 };

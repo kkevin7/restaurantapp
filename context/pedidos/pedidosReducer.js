@@ -1,15 +1,21 @@
-import {SELECCIONAR_PRODUCTO} from '../types'
+import {act} from 'react-test-renderer';
+import {SELECCIONAR_PRODUCTO, CONFIRMAR_ORDENAR_PLATILLO} from '../types';
 
 export default (state, action) => {
-    switch(action.type){
+  switch (action.type) {
+    case SELECCIONAR_PRODUCTO:
+      return {
+        ...state,
+        platillo: action.payload,
+      };
 
-        case SELECCIONAR_PRODUCTO:
-            return{
-                ...state,
-                platillo: action.payload
-            }
-        
-        default:
-            return state;
-    }
-}
+    case CONFIRMAR_ORDENAR_PLATILLO:
+      return {
+        ...state,
+        pedido: [...state.pedido, action.payload],
+      };
+
+    default:
+      return state;
+  }
+};
