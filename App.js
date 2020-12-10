@@ -21,6 +21,8 @@ import DetallePlatillo from './views/DetallePlatillo';
 import FormularioPlatillo from './views/FormularioPlatillo';
 import ResumenPedido from './views/ResumenPedido';
 import ProgresoPedido from './views/ProgresoPedido';
+//Components
+import BotonResumen from './components/ui/BotonResumen';
 
 const Stack = createStackNavigator();
 
@@ -52,6 +54,7 @@ const App = () => {
                 component={Menu}
                 options={{
                   title: 'Nuestro Menú',
+                  headerRight: props => <BotonResumen />
                 }}
               />
               <Stack.Screen

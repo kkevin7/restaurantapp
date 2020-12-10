@@ -17,9 +17,12 @@ import {
 import globalStyles from '../styles/global';
 //Context
 import PedidoContext from '../context/pedidos/pedidosContext';
+//Styles
 import gobalStyles from '../styles/global';
 //Navigation
 import {useNavigation} from '@react-navigation/native';
+//Assets
+import defaultImg from '../assets/images/image.png';
 
 const ResumenPedido = () => {
     const navigation = useNavigation();
@@ -47,7 +50,7 @@ const ResumenPedido = () => {
                         <List key={id + i}>
                             <ListItem thumbnail>
                                 <Left>
-                                    <Thumbnail large square source={{uri: imagen}} />
+                                    <Thumbnail large square source={imagen ? {uri: imagen} : defaultImg} />
                                 </Left>
 
                                 <Body>
@@ -61,7 +64,28 @@ const ResumenPedido = () => {
                    })}
 
                    <Text style={globalStyles.cantidad}>Total a Pagar: $ {Number(total).toFixed(2)}</Text>
+
+                   <Button
+                        style={[ {marginTop: 20}]} 
+                        full
+                        dark
+                        onPress={() => navigation.navigate("Menu")}
+                   >
+                       <Text style={[globalStyles.botonTexto, {color: "#FFF"}]}>Seguir Pidiendo</Text>
+                   </Button>
                </Content>
+
+               <Footer>
+                   <FooterTab>
+                   <Button
+                        style={[globalStyles.boton]} 
+                        full
+                        onPress={() => navigation.navigate("ProgresoPedido")}
+                   >
+                       <Text style={globalStyles.botonTexto}>ordenar Pedido</Text>
+                   </Button>
+                   </FooterTab>
+               </Footer>
            </Container>
     )
 }
