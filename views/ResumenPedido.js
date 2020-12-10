@@ -17,6 +17,8 @@ import {
 import globalStyles from '../styles/global';
 //Context
 import PedidoContext from '../context/pedidos/pedidosContext';
+//Firebase
+import firebase from '../firebase';
 //Styles
 import gobalStyles from '../styles/global';
 //Navigation
@@ -48,7 +50,24 @@ const ResumenPedido = () => {
             [
                 {
                     text: 'Confirmar',
-                    onPress: () => {
+                    onPress: async () => {
+                        //crear un objeto
+                        const pedidoObj = {
+                            tiempoentrega: 0,
+                            completado: false,
+                            total: Number(total),
+                            orden: pedido,
+                            creado: Date.now(),
+                        }
+
+                        //Guardar el pedido
+                        try {
+                            const pedido = await firebase.db.collection('ordenes').add(pedidoObj);
+                            console.log(pedido.id);
+                        } catch (error) {
+                            console.log("Error crear pedido: ", error)
+                        }
+
                         navigation.navigate("ProgresoPedido");
                     }
                 },
@@ -131,7 +150,7 @@ const ResumenPedido = () => {
                         full
                         onPress={progresoPedido}
                    >
-                       <Text style={globalStyles.botonTexto}>ordenar Pedido</Text>
+                       <Text style={globalStyles.botonTexto}>Ordenar Pedido</Text>
                    </Button>
                    </FooterTab>
                </Footer>
