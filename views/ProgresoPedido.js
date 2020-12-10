@@ -7,31 +7,75 @@ import {useNavigation} from '@react-navigation/native';
 import PedidoContext from '../context/pedidos/pedidosContext';
 //Firebase
 import firebase from '../firebase';
+import Countdown from 'react-countdown';
 
 const ProgesoPedido = () => {
-    //context
-    const {idPedido} = useContext(PedidoContext);
-    //state
-    const [tiempo, setTiempo] = useState(0);
+  //context
+  const {idPedido} = useContext(PedidoContext);
+  //state
+  const [tiempo, setTiempo] = useState(0);
 
-    useEffect(() => {
-        const obtenerProducto = () => {
-            firebase.db.collection('ordenes').doc(idPedido).onSnapshot(handleSnapshot);
-        }
-        obtenerProducto();
-    },[])
+  useEffect(() => {
+    const obtenerProducto = () => {
+      firebase.db
+        .collection('ordenes')
+        .doc(idPedido)
+        .onSnapshot(handleSnapshot);
+    };
+    obtenerProducto();
+  }, []);
 
-    const handleSnapshot = (doc) => {
-        setTiempo(doc.data().tiempoentrega);
-    }
+  const handleSnapshot = (doc) => {
+    setTiempo(doc.data().tiempoentrega);
+  };
 
+  //Muestra el countdown en la pantalla
+  const renderer = ({minutes, seconds}) => {
     return (
-        <View>
-            <Text>{tiempo}</Text>
-        </View>
-    )
-}
+      <Text style={styles.tiempo}>
+        {minutes}:{seconds}
+      </Text>
+    );
+  };
 
-export default ProgesoPedido
+  return (
+    <Container style={globalStyles.contenedor}>
+      <View
+        style={[globalStyles.contenido, {marginTop: 50, alignItems: 'center'}]}>
+        {tiempo === 0 && (
+          <>
+            <Text style={{textAlign: 'center'}}>Hemos recibido tu orden..</Text>
+            <Text style={{textAlign: 'center'}}>
+              Estamos calculando el tiempo de entrega
+            </Text>
+          </>
+        )}
 
-const styles = StyleSheet.create({})
+        {tiempo > 0 && (
+          <>
+            <Text style={{textAlign: 'center'}}>
+              Su orden estará lista en: {tiempo} Minutos
+            </Text>
+            <Text>
+              <Countdown
+                date={Date.now() + tiempo * 60000}
+                renderer={renderer}
+              />
+            </Text>
+          </>
+        )}
+      </View>
+    </Container>
+  );
+};
+
+export default ProgesoPedido;
+
+const styles = StyleSheet.create({
+  tiempo: {
+    marginBottom: 20,
+    fontSize: 60,
+    textAlign: 'center',
+    marginTop: 30,
+  },
+});

@@ -6413,6 +6413,13 @@ range-parser@~1.2.1:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
 
+react-countdown@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/react-countdown/-/react-countdown-2.3.1.tgz#6914538705075c74ac8f97fd8c31b29eadf44cbd"
+  integrity sha512-h66prF+Wwj3Ru4tDeqvXsW8iqaCyC54pjwTAlUUmUQ11EUqIO34xV4pO4q8MGT6917ep47ntKmBW99ZVN1ozdQ==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-devtools-core@^4.6.0:
   version "4.10.1"
   resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-4.10.1.tgz"
@@ -6479,23 +6486,9 @@ react-native-screens@^2.15.0:
   resolved "https://registry.npmjs.org/react-native-screens/-/react-native-screens-2.15.0.tgz"
   integrity sha512-qTSQPy0WKHtlb8xt5gY0Gt6sdvfQUQAnFSqgsggW9UEvySbkHzpqOrOYNA79Ca8oXO0dCFwp6X8buIiDefa7+Q==
 
-react-native-vector-icons@^7.0.0:
+react-native-vector-icons@^7.0.0, react-native-vector-icons@^7.1.0:
   version "7.1.0"
   resolved "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-7.1.0.tgz"
-  integrity sha512-V2a1zJ4i+kS8O4j183gIwX14St9AxxXabxwYpFBgRhvr2NDXyFcjHDEAgrOYYlt2W57e20aN1tBDU/I+wn9WtQ==
-  dependencies:
-    lodash.frompairs "^4.0.1"
-    lodash.isequal "^4.5.0"
-    lodash.isstring "^4.0.1"
-    lodash.omit "^4.5.0"
-    lodash.pick "^4.4.0"
-    lodash.template "^4.5.0"
-    prop-types "^15.7.2"
-    yargs "^15.0.2"
-
-react-native-vector-icons@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-7.1.0.tgz#145487d617b2a81d395d2cf64e6e065fcab3a454"
   integrity sha512-V2a1zJ4i+kS8O4j183gIwX14St9AxxXabxwYpFBgRhvr2NDXyFcjHDEAgrOYYlt2W57e20aN1tBDU/I+wn9WtQ==
   dependencies:
     lodash.frompairs "^4.0.1"
