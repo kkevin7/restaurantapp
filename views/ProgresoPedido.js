@@ -11,9 +11,11 @@ import Countdown from 'react-countdown';
 
 const ProgesoPedido = () => {
   //context
+  const navigation = useNavigation();
   const {idPedido} = useContext(PedidoContext);
   //state
   const [tiempo, setTiempo] = useState(0);
+  const [completado, setCompletado] = useState(false);
 
   useEffect(() => {
     const obtenerProducto = () => {
@@ -27,6 +29,7 @@ const ProgesoPedido = () => {
 
   const handleSnapshot = (doc) => {
     setTiempo(doc.data().tiempoentrega);
+    setCompletado(doc.data().completado);
   };
 
   //Muestra el countdown en la pantalla
@@ -51,7 +54,7 @@ const ProgesoPedido = () => {
           </>
         )}
 
-        {tiempo > 0 && (
+        {!completado && tiempo > 0 && (
           <>
             <Text style={{textAlign: 'center'}}>
               Su orden estará lista en: {tiempo} Minutos
@@ -64,6 +67,26 @@ const ProgesoPedido = () => {
             </Text>
           </>
         )}
+
+        {completado && (
+            <>
+            <H1 style={styles.textCompletado}>Orden Lista</H1>
+            <H3 style={styles.textCompletado}>
+              Por favor, pase a recoger su pedido
+            </H3>
+            <Button
+              style={[globalStyles.boton, {marginTop: 100}]}
+              rounded
+              block
+              onPress={() => navigation.navigate('NuevaOrden')}
+              >
+              <Text style={globalStyles.botonTexto}>
+                Comenzar una Nueva Orden
+              </Text>
+            </Button>
+            </>
+        )}
+
       </View>
     </Container>
   );
@@ -77,5 +100,10 @@ const styles = StyleSheet.create({
     fontSize: 60,
     textAlign: 'center',
     marginTop: 30,
+  },
+  textCompletado: {
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    marginBottom: 20,
   },
 });
