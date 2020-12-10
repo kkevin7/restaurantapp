@@ -6,9 +6,11 @@ import {useNavigation} from '@react-navigation/native';
 import PedidoContext from '../context/pedidos/pedidosContext';
 
 const ProgesoPedido = () => {
+    const {idPedido} = useContext(PedidoContext);
+
     return (
         <View>
-            <Text>Desde Progreso</Text>
+            <Text>{idPedido}</Text>
         </View>
     )
 }

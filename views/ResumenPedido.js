@@ -30,7 +30,7 @@ const ResumenPedido = () => {
     const navigation = useNavigation();
 
     //Context pedido
-    const {pedido, total, mostrarResumen, eliminarProducto} = useContext(PedidoContext);
+    const {pedido, total, mostrarResumen, eliminarProducto, pedidoOrdenado} = useContext(PedidoContext);
 
     useEffect(()=>{
         calcularTotal();
@@ -63,11 +63,12 @@ const ResumenPedido = () => {
                         //Guardar el pedido
                         try {
                             const pedido = await firebase.db.collection('ordenes').add(pedidoObj);
-                            console.log(pedido.id);
+                            pedidoOrdenado(pedido.id);
                         } catch (error) {
                             console.log("Error crear pedido: ", error)
                         }
 
+                        // redireccionar a progreso
                         navigation.navigate("ProgresoPedido");
                     }
                 },
